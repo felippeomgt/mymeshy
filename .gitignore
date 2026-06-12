@@ -1,0 +1,33 @@
+# --- Heavy: never commit (regenerated/downloaded locally) ---
+# uv-managed Python 3.11 environment
+.venv/
+# generated assets, model caches, uploads, job history (~16GB)
+data/
+# cloned model repos (Hunyuan3D-2, TripoSR, TRELLIS)
+external/
+# frontend deps (npm install)
+node_modules/
+# built frontend bundle (npm run build)
+frontend/dist/
+dist/
+
+# --- Secrets / local-only ---
+# local config & any secrets (use .env.example as the template)
+.env
+# local Claude Code agent settings (permissions, etc.)
+.claude/
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# --- Editor / OS ---
+.vscode/
+.idea/
+*.log
+Thumbs.db
+.DS_Store

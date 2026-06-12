@@ -1,0 +1,19 @@
+# MyMeshy backend — ML extras for real generation adapters.
+# Install AFTER the base requirements, inside the same venv.
+#
+#   uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+#   uv pip install -r requirements-ml.txt
+#
+# NOTE: the image-to-3D models themselves (TRELLIS / Hunyuan3D-2 / TripoSR) are
+# installed from their git repos — see README.md "Installing real models".
+
+# Pinned as a matched pair: transformers v5 restructured vision-model weights
+# (TripoSR/Hunyuan checkpoints need the 4.x layout) and diffusers >=0.33 needs
+# transformers v5 at import time.
+diffusers==0.32.2
+transformers==4.49.0
+accelerate>=0.33
+safetensors>=0.4
+einops
+omegaconf
+huggingface-hub

@@ -1,0 +1,18 @@
+# MyMeshy backend — base requirements (no GPU needed; runs with the mock pipeline)
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic>=2.7
+pydantic-settings>=2.3
+numpy>=1.26
+scipy>=1.13
+pillow>=10.3
+trimesh>=4.4
+rtree>=1.2
+xatlas>=0.0.9
+fast-simplification>=0.1.7
+scikit-image>=0.24
+networkx>=3.3
+# background removal (CPU onnx). Optional but strongly recommended.
+rembg>=2.0.57
+onnxruntime>=1.18
