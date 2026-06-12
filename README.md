@@ -27,6 +27,29 @@ Existing mesh ─► texturing adapter ─────────────�
             GLB/GLTF/OBJ/FBX ◄─ export ◄─ PBR maps ◄─ texture bake ◄─ UV unwrap
 ```
 
+## Platform support
+
+Developed and tested on **Windows + NVIDIA**, but the backend (Python/FastAPI),
+frontend (React), mesh pipeline, PBR baking, exports, viewer and MCP server are
+all OS-portable. Only **real AI generation** is platform-sensitive — every model
+adapter requires CUDA.
+
+| Platform | Real AI generation | Everything else |
+|---|---|---|
+| **Windows + NVIDIA** | ✅ Tested (primary platform) — use the `.ps1` scripts | ✅ |
+| **Linux + NVIDIA** | ✅ Supported — first-class for these models (CUDA extensions like the Hunyuan paint rasterizer often build *more* easily than on Windows). Use the `.sh` scripts. | ✅ |
+| **macOS** (Intel / Apple Silicon) | ❌ Not supported — the image→3D models (TRELLIS, Hunyuan3D-2, TripoSR) and SDXL are CUDA-only, and macOS has no CUDA (no Metal/MPS path). | ✅ runs in **mock mode** |
+| **Any OS, no NVIDIA GPU** | ❌ falls back to mock mode | ✅ |
+
+**Mock mode** runs the entire pipeline (UV unwrap, PBR baking, viewer, exports,
+MCP) with procedural placeholder meshes — no GPU, no downloads. macOS users and
+anyone without an NVIDIA card get a fully working app for development; just not
+real generated geometry.
+
+FBX export uses Blender on every platform — install it and make sure `blender`
+is on your `PATH` (or set `MYMESHY_BLENDER_PATH`). Steam installs are
+auto-detected on Windows.
+
 ## Features
 
 - **Text to 3D** — describe a prop/creature/vehicle/building; get a complete,
@@ -106,9 +129,18 @@ always runs. Per-job override is available in the UI and the API (`options.adapt
 Prereqs: Node 18+, [uv](https://docs.astral.sh/uv/) (the setup script installs
 it if missing). Your system Python version doesn't matter — uv provisions 3.11.
 
+**Windows:**
+
 ```powershell
 .\scripts\setup.ps1     # one-time: venv + deps + npm install
 .\scripts\dev.ps1       # starts backend (8420) + frontend (5173)
+```
+
+**Linux / macOS:**
+
+```bash
+./scripts/setup.sh      # one-time: venv + deps + npm install
+./scripts/dev.sh        # starts backend (8420) + frontend (5173)
 ```
 
 Open http://localhost:5173. Without ML models installed the app runs in **mock
@@ -118,7 +150,12 @@ downloading gigabytes.
 
 ## Installing real models
 
-All models run locally; weights download from Hugging Face on first use.
+All models run locally; weights download from Hugging Face on first use. This
+needs an **NVIDIA GPU with CUDA** (Windows or Linux) — macOS has no CUDA path.
+
+> The commands below use the Windows venv path `\.venv\Scripts\python.exe`. On
+> **Linux**, substitute `.venv/bin/python` everywhere (and `git clone ... external/<repo>`).
+
 First install the CUDA PyTorch stack into the venv:
 
 ```powershell
