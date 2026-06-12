@@ -15,6 +15,10 @@ agents (Claude Code, Cursor) can generate game assets for you on demand.
 No cloud, no API keys, no per-generation cost — your GPU does the work and the
 assets never leave your machine.
 
+> **See real output:** [`examples/scimitar.glb`](examples/scimitar.glb) is a
+> sample weapon generated locally by the text-to-3D pipeline — drop it into any
+> glTF viewer.
+
 ```
 Text prompt ─► text-to-image ─► background ─► image-to-3D ─► cleanup ─► decimate
 Image(s)  ──────────────────►  removal    ─►   (adapter)     │
